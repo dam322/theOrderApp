@@ -1,10 +1,80 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <title>$Title$</title>
+    <meta charset="UTF-8">
+    <title>The Order</title>
 </head>
 <body>
-$END$
+    {% block content %}
+  <h1>Crear Pedido</h1>
+  <form method="post" id="pedido-form">
+    {% csrf_token %}
+
+    <label for="id_restaurante">Restaurante:</label>
+    {{ restaurante.nombre }}
+    <br><br>
+    <label for="id_cliente_nombre">Nombre del Cliente:</label>
+    <input type="text" name="{{ pedido_form.cliente_nombre.name }}" id="{{ pedido_form.cliente_nombre.id_for_label }}">
+
+    <label for="id_tipo">Tipo:</label>
+    {{ pedido_form.tipo }}
+
+    <h2>Detalles del Pedido</h2>
+    <table id="detalle-table">
+      <thead>
+        <tr>
+          <th>Producto</th>
+          <th>Cantidad</th>
+          <th>Observaciones</th>
+        </tr>
+      </thead>
+      <tbody id="detalle-body">
+        {% for form in formset %}
+          <tr>
+            <td>
+              <select name="{{ productos }}">
+                {% for producto in productos %}
+                  <option value="{{ producto.id }}">{{ producto.nombre }}</option>
+                {% endfor %}
+              </select>
+            </td>
+            <td>{{ form.cantidad }}</td>
+            <td>{{ form.observaciones }}</td>
+          </tr>
+        {% endfor %}
+      </tbody>
+    </table>
+
+    <button type="button" id="add-detalle">Agregar Producto</button>
+    <button type="submit">Realizar Pedido</button>
+  </form>
+
+        <script>
+    document.addEventListener('DOMContentLoaded', function() {
+      const addDetalleButton = document.getElementById('add-detalle');
+      const detalleTableBody = document.getElementById('detalle-table').querySelector('tbody');
+      const formsetPrefix = '{{ formset.prefix }}';
+
+      let detalleFormCount = {{ formset.total_form_count }};
+
+      addDetalleButton.addEventListener('click', function() {
+        const newDetalleForm = document.createElement('tr');
+
+        newDetalleForm.innerHTML = `
+          <td><select name="${formsetPrefix}-${detalleFormCount}-producto">
+            {% for producto in productos %}
+              <option value="{{ producto.id }}">{{ producto.nombre }}</option>
+            {% endfor %}
+          </select></td>
+          <td><input type="number" name="${formsetPrefix}-${detalleFormCount}-cantidad" min="1"></td>
+          <td><textarea type="text" name="${formsetPrefix}-${detalleFormCount}-observaciones"></td>
+        `;
+
+        detalleTableBody.appendChild(newDetalleForm);
+        detalleFormCount++;
+      });
+    });
+  </script>
+{% endblock %}
 </body>
 </html>

@@ -16,7 +16,12 @@ Including another URLconf
 """
 from django.contrib import admin
 from django.urls import path
+from orderApp import views
 
 urlpatterns = [
     path('admin/', admin.site.urls),
+    path('', views.index, name='index'),
+    path('menu/<int:restaurante_id>/', views.menu, name='menu'),
+    path('pedido/<int:restaurante_id>', views.pedido, name='pedido'),
+    path('pedido/<int:pedido_id>/', views.pedido_detalle, name='pedido_detalle'),
 ]

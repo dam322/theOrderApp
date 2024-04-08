@@ -37,6 +37,9 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+    "orderApp.apps.OrderappConfig",
+    "productApp.apps.ProductappConfig",
+    "restaurantApp.apps.RestaurantappConfig"
 ]
 
 MIDDLEWARE = [
@@ -75,8 +78,12 @@ WSGI_APPLICATION = 'theOrderApp.wsgi.application'
 
 DATABASES = {
     'default': {
-        'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': BASE_DIR / 'db.sqlite3',
+        'ENGINE': 'django.db.backends.postgresql',
+        'NAME': 'TheOrderAppDB',
+        'USER': 'postgres',
+        'PASSWORD': 'terry',
+        'HOST': 'localhost',  # o dirección IP de tu servidor de PostgreSQL
+        'PORT': '5432',       # puerto por defecto de PostgreSQL
     }
 }
 

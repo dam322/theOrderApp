@@ -1,10 +1,16 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <title>$Title$</title>
+    <meta charset="UTF-8">
+    <title>The Order</title>
 </head>
 <body>
-$END$
+    <h1>{{ restaurante.nombre }}</h1>
+<ul>
+  {% for producto in productos %}
+    <li>{{ producto.nombre }} - {{ producto.precio }}</li>
+  {% endfor %}
+</ul>
+<a href="{% url 'pedido' restaurante.id %}">Realizar Pedido</a>
 </body>
 </html>

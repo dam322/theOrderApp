@@ -1,10 +1,15 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <title>$Title$</title>
+    <meta charset="UTF-8">
+    <title>The Order</title>
 </head>
 <body>
-$END$
+    <h1>Restaurantes</h1>
+<ul>
+  {% for restaurante in restaurantes %}
+    <li><a href="{% url 'menu' restaurante.id %}">{{ restaurante.nombre }}</a></li>
+  {% endfor %}
+</ul>
 </body>
 </html>

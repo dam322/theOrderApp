@@ -1,10 +1,16 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <title>$Title$</title>
+    <meta charset="UTF-8">
+    <title>The Order</title>
 </head>
 <body>
-$END$
+    <h1>Detalle del Pedido</h1>
+<h2>Pedido #{{ pedido.id }}</h2>
+<ul>
+  {% for detalle in detalles %}
+    <li>{{ detalle.producto.nombre }} - {{ detalle.cantidad }} - {{ detalle.observaciones }}</li>
+  {% endfor %}
+</ul>
 </body>
 </html>
